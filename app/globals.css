@@ -1,0 +1,327 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  :root {
+    --background: 220 100% 99%;           /* #F8F9FA - soft white */
+    --foreground: 210 10% 15%;            /* Dark slate for readable text */
+    --card: 210 40% 98%;                  /* #FBFCFD - subtle contrast from bg */
+    --card-foreground: 210 10% 20%;
+    --popover: 210 40% 97%;
+    --popover-foreground: 210 10% 20%;
+  
+    --primary: 207 90% 61%;               /* #87CEEB - sky blue */
+    --primary-foreground: 210 40% 15%;    /* dark foreground for contrast */
+  
+    --secondary: 210 70% 85%;             /* #BBDEFB - light blue */
+    --secondary-foreground: 210 15% 25%;
+  
+    --accent: 220 20% 40%;                /* #36454F - charcoal tone */
+    --accent-foreground: 0 0% 100%;
+  
+    --muted: 210 15% 90%;
+    --muted-foreground: 210 10% 40%;
+  
+    --border: 210 16% 85%;
+    --input: 210 16% 85%;
+    --ring: 207 90% 61%;                  /* reuse sky blue for input focus ring */
+  
+    --radius: 0.5rem;
+    --brand-text: linear-gradient(90deg, #1A2631, #87CEEB);  /* Midnight to Sky Blue */
+    --brand-underline: linear-gradient(90deg, #36454F, #87CEEB);
+  }
+  
+
+  .dark {
+    --background: 240 27% 10%;
+    --foreground: 270 14% 94%;
+    --card: 240 27% 12%;
+    --card-foreground: 270 14% 94%;
+    --popover: 240 27% 12%;
+    --popover-foreground: 270 14% 94%;
+    --primary: 35 91% 55%;              /* Orange/Golden color #F5A524 */
+    --primary-foreground: 270 14% 94%;
+    --secondary: 240 20% 20%;
+    --secondary-foreground: 270 14% 94%;
+    --accent: 35 91% 55%;               /* Orange/Golden color #F5A524 */
+    --accent-foreground: 270 14% 94%;
+    --muted: 240 7% 67%;
+    --muted-foreground: 270 14% 94%;
+    --border: 240 20% 15%;
+    --input: 240 20% 15%;
+    --ring: 35 91% 55%;                 /* Orange/Golden color #F5A524 */
+    --brand-text: linear-gradient(90deg, #4F46E5, #E879F9);
+    --brand-underline: linear-gradient(90deg, #4F46E5, #E879F9);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Smooth Theme Transitions */
+* {
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Enhanced Card Styles */
+.card {
+  @apply relative overflow-hidden rounded-lg border-2 transition-all duration-300;
+  border-color: hsl(var(--border));
+  background: hsl(var(--card));
+}
+
+.card:hover {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 1px hsl(var(--primary) / 0.3),
+              0 0 20px -4px hsl(var(--primary) / 0.2);
+}
+
+.border-primary\/10 {
+  border-color: hsl(var(--primary) / 0.6);
+}
+
+.contact_card {
+  position: relative;
+  background: rgba(17, 17, 27, 0.7);
+  border-radius: var(--radius);
+  overflow: visible;
+  border: 1px solid #4F46E5;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.3);
+}
+
+.contact_card > div {
+  background: rgba(17, 17, 27, 0.95);
+  border-radius: var(--radius);
+  border: 1px solid rgba(79, 70, 229, 0.3);
+}
+
+/* Logo Animation */
+.logo-text {
+  background: linear-gradient(90deg, #4F46E5, #E879F9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.logo-underline {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #4F46E5, #E879F9);
+  border-radius: 4px;
+}
+
+.resume_card{
+  border-color: hsl(var(--primary) / 0.6);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    hsl(var(--primary) / 0.3),
+    hsl(var(--primary) / 0.1),
+    transparent 60%
+  );
+  mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Clean Typography */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
+  }
+  
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+/* Contact Cards Styling */
+.contact-info-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--primary));
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.dark .contact-info-card {
+  background: rgba(17, 17, 27, 0.95);
+  border-color: hsl(var(--primary));
+}
+
+.contact-info-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.5));
+  border-radius: inherit;
+  padding: 1px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Message Card Styling */
+.message-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--primary));
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.dark .message-card {
+  background: rgba(17, 17, 27, 0.95);
+  border-color: hsl(var(--primary));
+}
+
+.message-card label {
+  display: block;
+  color: hsl(var(--foreground));
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.message-card input,
+.message-card textarea {
+  width: 100%;
+  background: hsl(var(--background));
+  border: 2px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  color: hsl(var(--foreground));
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.dark .message-card input,
+.dark .message-card textarea {
+  background: rgba(30, 30, 45, 0.95);
+  border-color: hsl(var(--primary) / 0.3);
+}
+
+.message-card input::placeholder,
+.message-card textarea::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+.dark .message-card input::placeholder,
+.dark .message-card textarea::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+.message-card input:hover,
+.message-card textarea:hover {
+  border-color: hsl(var(--primary));
+}
+
+.dark .message-card input:hover,
+.dark .message-card textarea:hover {
+  border-color: hsl(var(--primary));
+}
+
+.message-card input:focus,
+.message-card textarea:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.1);
+}
+
+.dark .message-card input:focus,
+.dark .message-card textarea:focus {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.1);
+}
+
+/* Button Styling */
+.contact-info-card button,
+.message-card button[type="submit"] {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.dark .contact-info-card button,
+.dark .message-card button[type="submit"] {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.contact-info-card button:hover,
+.message-card button[type="submit"]:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Icon Containers */
+.contact-info-card .bg-primary\/10 {
+  background: hsl(var(--primary) / 0.1);
+}
+
+.contact-info-card .text-primary {
+  color: hsl(var(--primary));
+}
+
+.dark .contact-info-card .bg-primary\/10 {
+  background: hsl(var(--primary) / 0.1);
+}
+
+.dark .contact-info-card .text-primary {
+  color: hsl(var(--primary));
+}
+
+/* Contact Card */
+.contact_card {
+  background: hsl(var(--card));
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: none;
+  overflow: hidden;
+  position: relative;
+}
+
+.dark .contact_card {
+  background: rgba(17, 17, 27, 0.7);
+  border-color: hsl(var(--primary));
+  box-shadow: none;
+}
+
