@@ -1,7 +1,24 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
-import rehypePrettyCode from 'rehype-pretty-code';
+import type { Plugin } from 'unified';
+const rehypePrettyCode = require('rehype-pretty-code');
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
+
+// Add type assertion for rehypePrettyCode options
+const prettyCodeOptions = {
+  theme: "github-dark",
+  onVisitLine(node: any) {
+    if (node.children.length === 0) {
+      node.children = [{ type: 'text', value: ' ' }];
+    }
+  },
+  onVisitHighlightedLine(node: any) {
+    node.properties.className.push('line--highlighted');
+  },
+  onVisitHighlightedWord(node: any) {
+    node.properties.className = ['word--highlighted'];
+  },
+} as const;
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -54,20 +71,7 @@ export default makeSource({
       rehypeSlug,
       [
         rehypePrettyCode,
-        {
-          theme: 'github-dark',
-          onVisitLine(node: any) {
-            if (node.children.length === 0) {
-              node.children = [{ type: 'text', value: ' ' }];
-            }
-          },
-          onVisitHighlightedLine(node: any) {
-            node.properties.className.push('line--highlighted');
-          },
-          onVisitHighlightedWord(node: any) {
-            node.properties.className = ['word--highlighted'];
-          },
-        },
+        prettyCodeOptions,
       ],
     ],
   },

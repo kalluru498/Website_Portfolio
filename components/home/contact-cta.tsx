@@ -28,15 +28,15 @@ export default function ContactCTA() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 max-w-2xl mx-auto">
             <div className="flex items-center gap-3 text-muted-foreground">
               <Mail className="h-5 w-5 text-primary" />
-              <a href="mailto:kallurunaveen498@gmail.com" className="hover:text-primary transition-colors">
+              <Link href="mailto:kallurunaveen498@gmail.com" className="hover:text-primary transition-colors">
                 kallurunaveen498@gmail.com
-              </a>
+              </Link>
             </div>
             <div className="flex items-center gap-3 text-muted-foreground">
               <Phone className="h-5 w-5 text-primary" />
-              <a href="tel:+19407584860" className="hover:text-primary transition-colors">
+              <Link href="tel:+19407584860" className="hover:text-primary transition-colors">
                 +1 (940)-758-4860
-              </a>
+              </Link>
             </div>
             <div className="flex items-center gap-3 text-muted-foreground">
               <MapPin className="h-5 w-5 text-primary" />
@@ -44,14 +44,14 @@ export default function ContactCTA() {
             </div>
             <div className="flex items-center gap-3 text-muted-foreground">
               <Linkedin className="h-5 w-5 text-primary" />
-              <a 
+              <Link 
                 href="https://linkedin.com/in/nkreddy11625071" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"
               >
                 linkedin.com/in/nkreddy11625071
-              </a>
+              </Link>
             </div>
           </div>
           

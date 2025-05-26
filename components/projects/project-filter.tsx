@@ -1,68 +1,64 @@
 "use client";
 
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import ProjectCard from "@/components/projects/project-card";
+import { ProjectCard } from "@/components/projects/project-card";
 
 interface Project {
   id: number;
   title: string;
   description: string;
   imageUrl: string;
-  tags: string[];
-  category: string;
   demoUrl: string;
   githubUrl: string;
-  featured?: boolean;
+  category: string;
+  features: string[];
+  technologies: string[];
 }
 
-interface ProjectFilterProps {
-  projects: Project[];
-}
-
-export default function ProjectFilter({ projects }: ProjectFilterProps) {
-  const allCategories = ["All", ...new Set(projects.map(project => project.category))];
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [filteredProjects, setFilteredProjects] = useState(projects);
-
-  const handleCategoryChange = (category: string) => {
-    setActiveCategory(category);
-    if (category === "All") {
-      setFilteredProjects(projects);
-    } else {
-      setFilteredProjects(projects.filter(project => project.category === category));
-    }
-  };
+export function ProjectFilter({ projects }: { projects: Project[] }) {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  
+  // Get unique categories from projects
+  const categories = Array.from(
+    new Set(["all", ...projects.map((project) => project.category)])
+  );
+  
+  const filteredProjects = projects.filter((project) =>
+    selectedCategory === "all" ? true : project.category === selectedCategory
+  );
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2 justify-center mb-12">
-        {allCategories.map((category) => (
+      <div className="flex flex-wrap justify-center gap-2 mb-8">
+        {categories.map((category) => (
           <Button
             key={category}
-            variant={activeCategory === category ? "default" : "outline"}
-            onClick={() => handleCategoryChange(category)}
+            onClick={() => setSelectedCategory(category)}
+            variant={selectedCategory === category ? "default" : "outline"}
+            className={cn(
+              "capitalize",
+              selectedCategory === category &&
+                "bg-primary text-primary-foreground hover:bg-primary/90"
+            )}
           >
             {category}
           </Button>
         ))}
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {filteredProjects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+      <motion.div
+        layout
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <AnimatePresence>
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
-        </motion.div>
-      </AnimatePresence>
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

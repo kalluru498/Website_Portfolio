@@ -8,6 +8,7 @@ import { Download, Eye, Printer } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { fadeIn, staggerContainer } from "@/lib/motion";
+import Link from "next/link";
 
 export function ResumeContent() {
   const [activeView, setActiveView] = useState<"preview" | "download">("preview");
@@ -359,7 +360,7 @@ export function ResumeContent() {
                     feel free to contact me directly.
                   </p>
                   <Button variant="outline" asChild>
-                    <a href="mailto:kallurunaveen498@gmail.com">Contact Me</a>
+                    <Link href="mailto:kallurunaveen498@gmail.com">Contact Me</Link>
                   </Button>
                 </div>
               </CardContent>

@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import ContactForm from "@/components/contact/contact-form";
 import { Button } from "@/components/ui/button";
 import { fadeIn, staggerContainer } from "@/lib/motion";
+import Link from "next/link";
 
 export default function ContactPage() {
   return (
@@ -77,9 +78,9 @@ export default function ContactPage() {
                 Prefer to schedule a call? Use my Calendly link to find a time that works for both of us.
               </p>
               <Button asChild>
-                <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <Calendar className="h-5 w-5" /> Schedule a Call
-                </a>
+                </Link>
               </Button>
             </div>
           </motion.div>
