@@ -15,10 +15,10 @@ export default function ContactCTA() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="bg-card/50 backdrop-blur-sm rounded-xl shadow-lg p-8 md:p-12 max-w-4xl mx-auto border border-primary/10"
+          className="bg-card/50 backdrop-blur-sm rounded-xl shadow-lg p-8 md:p-12 max-w-4xl mx-auto border border-primary/10 flex flex-col items-center text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
-            Let's Build Something Amazing Together
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80 inline-block px-4 py-2">
+            Let&apos;s Build Something Amazing Together
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
             Looking for an AI Full Stack Developer or Product Developer? I'm always excited to discuss new opportunities 

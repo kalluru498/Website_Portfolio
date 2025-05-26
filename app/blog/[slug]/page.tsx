@@ -1,4 +1,5 @@
 import { BlogPost } from "@/components/blog/blog-post";
+import { Metadata } from "next";
 
 // Mock blog posts data (same as in blog/page.tsx)
 const blogPosts = [
@@ -7,7 +8,7 @@ const blogPosts = [
     title: "Building a Portfolio with Next.js and Framer Motion",
     excerpt: "Learn how to create an animated portfolio site using Next.js 14 and Framer Motion for stunning transitions and animations that will make your work stand out.",
     date: "2025-03-15",
-    image: "https://images.pexels.com/photos/11035380/pexels-photo-11035380.jpeg",
+    image: "/blog/nextjs-portfolio.jpg",
     category: "Web Development",
     slug: "building-portfolio-nextjs-framer-motion",
     content: `
@@ -136,7 +137,7 @@ const blogPosts = [
     title: "The Power of TypeScript in Modern Web Development",
     excerpt: "Explore how TypeScript improves code quality and developer experience in React applications with practical examples and best practices.",
     date: "2025-02-28",
-    image: "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg",
+    image: "/blog/typescript.jpg",
     category: "TypeScript",
     slug: "power-of-typescript-modern-web-development",
     content: `
@@ -184,7 +185,7 @@ const blogPosts = [
     title: "Implementing AI Chatbots with LangChain and OpenAI",
     excerpt: "A step-by-step guide to creating intelligent chatbots using LangChain and OpenAI's powerful models for your web applications.",
     date: "2025-02-10",
-    image: "https://images.pexels.com/photos/8438923/pexels-photo-8438923.jpeg",
+    image: "/blog/ai-chatbot.jpg",
     category: "AI",
     slug: "implementing-ai-chatbots-langchain-openai",
     content: `
@@ -566,7 +567,7 @@ const blogPosts = [
     title: "Responsive Design Principles Every Developer Should Know",
     excerpt: "Master the fundamentals of responsive web design to create websites that look great on any device, from mobile phones to large desktop screens.",
     date: "2025-01-25",
-    image: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg",
+    image: "/blog/responsive-design.jpg",
     category: "CSS",
     slug: "responsive-design-principles",
     content: "Full article content here...",
@@ -576,7 +577,7 @@ const blogPosts = [
     title: "Getting Started with Tailwind CSS: A Practical Guide",
     excerpt: "Learn how to set up and use Tailwind CSS in your projects to streamline your workflow and create beautiful, consistent user interfaces.",
     date: "2025-01-15",
-    image: "https://images.pexels.com/photos/11035471/pexels-photo-11035471.jpeg",
+    image: "/blog/tailwind.jpg",
     category: "CSS",
     slug: "getting-started-tailwind-css",
     content: "Full article content here...",
@@ -586,7 +587,7 @@ const blogPosts = [
     title: "State Management in React: Context API vs. Redux",
     excerpt: "A comprehensive comparison of different state management approaches in React applications to help you choose the right one for your project.",
     date: "2024-12-20",
-    image: "https://images.pexels.com/photos/11035543/pexels-photo-11035543.jpeg",
+    image: "/blog/react-state.jpg",
     category: "React",
     slug: "state-management-react",
     content: "Full article content here...",
@@ -599,7 +600,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
+type PageParams = { slug: string };
+
+export default function BlogPostPage({ params }: { params: PageParams }) {
   const post = blogPosts.find(post => post.slug === params.slug);
   
   if (!post) {
@@ -607,4 +610,20 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   }
   
   return <BlogPost post={post} />;
+}
+
+export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
+  const post = blogPosts.find(post => post.slug === params.slug);
+  
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+      description: 'The requested blog post could not be found.'
+    };
+  }
+
+  return {
+    title: `${post.title} | Blog`,
+    description: post.excerpt,
+  };
 }

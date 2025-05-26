@@ -38,14 +38,15 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="mb-8 relative w-40 h-40 rounded-full overflow-hidden border-4 border-primary/20 bg-gradient-to-br from-primary/20 to-primary/10"
+          className="mb-8 relative w-40 h-40 rounded-full overflow-hidden border-4 border-primary/20 bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center"
         >
           <Image
             src="/images/profile.jpg"
             alt="Naveen Kumar Reddy Kalluru"
             fill
-            className="object-cover"
+            className="object-cover rounded-full"
             priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />  
         </motion.div>
 
@@ -53,9 +54,10 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80"
+          className="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80 px-4 py-2"
         >
-          Naveen Kumar Reddy Kalluru
+          <span className="inline-block">Naveen Kumar</span>{" "}
+          <span className="inline-block">Reddy Kalluru</span>
         </motion.h1>
 
         <div className="h-16 mb-6">

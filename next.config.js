@@ -5,6 +5,9 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: { unoptimized: true },
+  experimental: {
+    typedRoutes: false
+  }
 };
 
 module.exports = nextConfig;
