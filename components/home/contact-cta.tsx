@@ -69,7 +69,7 @@ export default function ContactCTA() {
               className="border-primary text-primary hover:bg-primary/10 gap-2" 
               asChild
             >
-              <Link href="https://calendly.com" target="_blank">
+              <Link href="https://calendly.com/kallurunaveen498/30min" target="_blank">
                 <Calendar className="h-5 w-5" />
                 Schedule a Call
               </Link>

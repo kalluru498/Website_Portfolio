@@ -77,11 +77,12 @@ export default function ContactPage() {
               <p className="text-muted-foreground mb-4">
                 Prefer to schedule a call? Use my Calendly link to find a time that works for both of us.
               </p>
-              <Button asChild>
-                <Link href="https://calendly.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5" /> Schedule a Call
-                </Link>
-              </Button>
+              <Link href="https://calendly.com/kallurunaveen498/30min" target="_blank" rel="noopener noreferrer">
+                <Button className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5" />
+                    Schedule a Call
+                </Button>
+              </Link>
             </div>
           </motion.div>
           
