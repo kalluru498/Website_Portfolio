@@ -18,7 +18,7 @@ const featuredProjects = [
     imageUrl: "/projects/ecommerce.jpg",
     tags: ["OpenAI", "Claude", "AWS Bedrock", "React", "Next.js", "Django", "Docker", "Kubernetes"],
     demoUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/kalluru498/cloudmart",
   },
   {
     id: 2,

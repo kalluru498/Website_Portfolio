@@ -28,7 +28,7 @@ const projects = [
     ],
     imageUrl: "/projects/ecommerce.jpg",
     demoUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/kalluru498/cloudmart",
   },
   {
     id: 2,
