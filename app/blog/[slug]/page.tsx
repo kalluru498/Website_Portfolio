@@ -3,15 +3,15 @@ import { Metadata } from "next";
 
 // Mock blog posts data (same as in blog/page.tsx)
 const blogPosts = [
-  {
-    id: 1,
-    title: "Building a Portfolio with Next.js and Framer Motion",
-    excerpt: "Learn how to create an animated portfolio site using Next.js 14 and Framer Motion for stunning transitions and animations that will make your work stand out.",
-    date: "2025-03-15",
-    image: "/blog/nextjs-portfolio.jpg",
-    category: "Web Development",
-    slug: "building-portfolio-nextjs-framer-motion",
-    content: `
+	{
+		id: 1,
+		title: "Building a Portfolio with Next.js and Framer Motion",
+		excerpt: "Learn how to create an animated portfolio site using Next.js 14 and Framer Motion for stunning transitions and animations that will make your work stand out.",
+		date: "2025-03-15",
+		image: "/blog/nextjs-portfolio.jpg",
+		category: "Web Development",
+		slug: "building-portfolio-nextjs-framer-motion",
+		content: `
       # Building a Portfolio with Next.js and Framer Motion
 
       Creating a portfolio website is an essential step for any web developer to showcase their skills and projects. With modern frameworks like Next.js and animation libraries like Framer Motion, you can create stunning, interactive experiences that make your portfolio stand out.
@@ -131,16 +131,16 @@ const blogPosts = [
 
       Remember that animations should enhance the user experience, not distract from it. Use them purposefully to guide attention and create a cohesive, professional presentation of your work.
     `,
-  },
-  {
-    id: 2,
-    title: "The Power of TypeScript in Modern Web Development",
-    excerpt: "Explore how TypeScript improves code quality and developer experience in React applications with practical examples and best practices.",
-    date: "2025-02-28",
-    image: "/blog/typescript.jpg",
-    category: "TypeScript",
-    slug: "power-of-typescript-modern-web-development",
-    content: `
+	},
+	{
+		id: 2,
+		title: "The Power of TypeScript in Modern Web Development",
+		excerpt: "Explore how TypeScript improves code quality and developer experience in React applications with practical examples and best practices.",
+		date: "2025-02-28",
+		image: "/blog/typescript.jpg",
+		category: "TypeScript",
+		slug: "power-of-typescript-modern-web-development",
+		content: `
       # The Power of TypeScript in Modern Web Development
 
       TypeScript has revolutionized how we write JavaScript applications by adding static types and powerful features that help catch errors early and improve code maintainability.
@@ -179,16 +179,16 @@ const blogPosts = [
 
       TypeScript has become an essential tool in modern web development, especially for large-scale applications. The initial learning curve is well worth the long-term benefits in code quality, maintainability, and developer productivity. By adopting TypeScript in your React projects, you're investing in code that's more robust, easier to understand, and simpler to maintain over time.
     `,
-  },
-  {
-    id: 3,
-    title: "Implementing AI Chatbots with LangChain and OpenAI",
-    excerpt: "A step-by-step guide to creating intelligent chatbots using LangChain and OpenAI's powerful models for your web applications.",
-    date: "2025-02-10",
-    image: "/blog/ai-chatbot.jpg",
-    category: "AI",
-    slug: "implementing-ai-chatbots-langchain-openai",
-    content: `
+	},
+	{
+		id: 3,
+		title: "Implementing AI Chatbots with LangChain and OpenAI",
+		excerpt: "A step-by-step guide to creating intelligent chatbots using LangChain and OpenAI's powerful models for your web applications.",
+		date: "2025-02-10",
+		image: "/blog/ai-chatbot.jpg",
+		category: "AI",
+		slug: "implementing-ai-chatbots-langchain-openai",
+		content: `
       # Implementing AI Chatbots with LangChain and OpenAI
 
       AI chatbots have become increasingly popular for providing user support, enhancing user engagement, and automating tasks on websites. With the combination of LangChain and OpenAI's powerful language models, developers can now create sophisticated chatbots with relatively little effort.
@@ -561,69 +561,70 @@ const blogPosts = [
 
       Remember to monitor your API usage, as OpenAI charges based on the number of tokens processed. You may want to implement rate limiting and other optimizations to control costs while providing a great user experience.
     `,
-  },
-  {
-    id: 4,
-    title: "Responsive Design Principles Every Developer Should Know",
-    excerpt: "Master the fundamentals of responsive web design to create websites that look great on any device, from mobile phones to large desktop screens.",
-    date: "2025-01-25",
-    image: "/blog/responsive-design.jpg",
-    category: "CSS",
-    slug: "responsive-design-principles",
-    content: "Full article content here...",
-  },
-  {
-    id: 5,
-    title: "Getting Started with Tailwind CSS: A Practical Guide",
-    excerpt: "Learn how to set up and use Tailwind CSS in your projects to streamline your workflow and create beautiful, consistent user interfaces.",
-    date: "2025-01-15",
-    image: "/blog/tailwind.jpg",
-    category: "CSS",
-    slug: "getting-started-tailwind-css",
-    content: "Full article content here...",
-  },
-  {
-    id: 6,
-    title: "State Management in React: Context API vs. Redux",
-    excerpt: "A comprehensive comparison of different state management approaches in React applications to help you choose the right one for your project.",
-    date: "2024-12-20",
-    image: "/blog/react-state.jpg",
-    category: "React",
-    slug: "state-management-react",
-    content: "Full article content here...",
-  },
+	},
+	{
+		id: 4,
+		title: "Responsive Design Principles Every Developer Should Know",
+		excerpt: "Master the fundamentals of responsive web design to create websites that look great on any device, from mobile phones to large desktop screens.",
+		date: "2025-01-25",
+		image: "/blog/responsive-design.jpg",
+		category: "CSS",
+		slug: "responsive-design-principles",
+		content: "Full article content here...",
+	},
+	{
+		id: 5,
+		title: "Getting Started with Tailwind CSS: A Practical Guide",
+		excerpt: "Learn how to set up and use Tailwind CSS in your projects to streamline your workflow and create beautiful, consistent user interfaces.",
+		date: "2025-01-15",
+		image: "/blog/tailwind.jpg",
+		category: "CSS",
+		slug: "getting-started-tailwind-css",
+		content: "Full article content here...",
+	},
+	{
+		id: 6,
+		title: "State Management in React: Context API vs. Redux",
+		excerpt: "A comprehensive comparison of different state management approaches in React applications to help you choose the right one for your project.",
+		date: "2024-12-20",
+		image: "/blog/react-state.jpg",
+		category: "React",
+		slug: "state-management-react",
+		content: "Full article content here...",
+	},
 ];
 
+type Props = {
+	params: Promise<{
+		slug: string;
+	}>;
+};
+
+export default async function BlogPostPage({ params }: Props) {
+	const resolvedParams = await params;
+	const post = blogPosts.find((post) => post.slug === resolvedParams.slug);
+	if (!post) return null;
+	return <BlogPost post={post} />;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const resolvedParams = await params;
+	const post = blogPosts.find((post) => post.slug === resolvedParams.slug);
+	if (!post) {
+		return {
+			title: "Post Not Found",
+			description: "The requested blog post could not be found.",
+		};
+	}
+
+	return {
+		title: `${post.title} | Blog`,
+		description: post.excerpt,
+	};
+}
+
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
-type PageParams = { slug: string };
-
-export default function BlogPostPage({ params }: { params: PageParams }) {
-  const post = blogPosts.find(post => post.slug === params.slug);
-  
-  if (!post) {
-    return null;
-  }
-  
-  return <BlogPost post={post} />;
-}
-
-export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
-  const post = blogPosts.find(post => post.slug === params.slug);
-  
-  if (!post) {
-    return {
-      title: 'Post Not Found',
-      description: 'The requested blog post could not be found.'
-    };
-  }
-
-  return {
-    title: `${post.title} | Blog`,
-    description: post.excerpt,
-  };
+	return blogPosts.map((post) => ({
+		slug: post.slug,
+	}));
 }
