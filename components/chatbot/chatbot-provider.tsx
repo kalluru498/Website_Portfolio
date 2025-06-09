@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Bot } from "lucide-react";
+import { MessageSquare, X, Send, Bot, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { createClient } from "@/lib/supabaseClient";
 
+const supabase = createClient();
+
+// --- Types ---
 type Message = {
   id: string;
   content: string;
@@ -19,16 +23,33 @@ export function ChatbotProvider() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUserEmail(user?.email || null);
     };
+    getUser();
+  }, []);
+
+  const login = async () => {
+    const email = prompt("Enter your email to login");
+    if (email) {
+      const { error } = await supabase.auth.signInWithOtp({ email });
+      if (!error) alert("Check your email for the login link");
+    }
+  };
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setUserEmail(null);
+  };
+
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
   }, [isOpen]);
 
   useEffect(() => {
@@ -65,17 +86,16 @@ export function ChatbotProvider() {
 
     setTimeout(() => {
       const botResponses: Record<string, string> = {
-        "who are you": "I'm an AI assistant for Naveen Kumar Reddy Kalluru, a Full Stack Developer and AI Specialist with expertise in Python, React, Cloud Technologies, and AI/ML development.",
-        "what are naveen's skills": "Naveen specializes in Python, JavaScript, TypeScript, Cloud Technologies (AWS, GCP, Azure), and AI/ML development. He's proficient in building scalable web applications and AI-powered solutions.",
-        "projects": "Naveen has worked on various projects including AI-powered e-commerce platforms, genomic analysis tools, and enterprise-level applications. You can check them out in the Projects section!",
-        "contact": "You can reach Naveen via email at kallurunaveen498@gmail.com or call at +1 (940)-758-4860.",
-        "resume": "You can view or download Naveen's resume from the Resume page. It contains his work experience, education, and technical skills.",
-        "education": "Naveen holds a Master's degree in Computer Science from the University of North Texas and a BTech in Electronics and Communication Engineering from RGM College of Engineering.",
-        "experience": "Naveen has over 4 years of experience in software development, currently working as a Software Development Engineer at BestBuy, with previous roles at Cognizant Technology Solutions and Afferent Technologies."
+        "who are you": "I'm an AI assistant for Naveen Kumar Reddy Kalluru, a Full Stack Developer and AI Specialist...",
+        "what are naveen's skills": "Naveen specializes in Python, JavaScript, TypeScript...",
+        "projects": "Naveen has worked on AI-powered e-commerce platforms, genomic tools...",
+        "contact": "You can reach Naveen via email at kallurunaveen498@gmail.com...",
+        "resume": "You can view or download Naveen's resume from the Resume page...",
+        "education": "Naveen holds a Master's degree in CS from UNT...",
+        "experience": "Naveen has over 4 years of experience including roles at BestBuy..."
       };
 
-      let responseText = "I don't have specific information about that. You can explore Naveen's portfolio for more details or contact him directly with your questions!";
-
+      let responseText = "I don't have specific information about that. Try exploring the portfolio.";
       const lowerInput = input.toLowerCase();
       for (const [keyword, response] of Object.entries(botResponses)) {
         if (lowerInput.includes(keyword)) {
@@ -117,11 +137,7 @@ export function ChatbotProvider() {
           size="icon"
           className="h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90"
         >
-          {isOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Bot className="h-6 w-6" />
-          )}
+          {isOpen ? <X className="h-6 w-6" /> : <Bot className="h-6 w-6" />}
         </Button>
       </div>
 
@@ -129,22 +145,8 @@ export function ChatbotProvider() {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-              transition: {
-                type: "spring",
-                stiffness: 300,
-                damping: 25
-              }
-            }}
-            exit={{ 
-              opacity: 0, 
-              scale: 0.95,
-              transition: {
-                duration: 0.2
-              }
-            }}
+            animate={{ opacity: 1, scale: 1, transition: { type: "spring", stiffness: 300, damping: 25 } }}
+            exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
             className="fixed inset-0 z-50 flex items-center justify-center"
           >
             <div className="w-[500px] max-w-[95vw] bg-card border rounded-lg shadow-lg overflow-hidden">
@@ -156,12 +158,7 @@ export function ChatbotProvider() {
                     </div>
                     <h3 className="font-medium">Naveen's AI Assistant</h3>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="hover:bg-primary/20"
-                    onClick={() => setIsOpen(false)}
-                  >
+                  <Button variant="ghost" size="icon" className="hover:bg-primary/20" onClick={() => setIsOpen(false)}>
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
@@ -170,19 +167,8 @@ export function ChatbotProvider() {
               <ScrollArea className="h-[400px] p-4">
                 <div className="flex flex-col gap-4">
                   {messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`flex ${
-                        message.sender === "user" ? "justify-end" : "justify-start"
-                      }`}
-                    >
-                      <div
-                        className={`max-w-[80%] rounded-lg px-4 py-2 ${
-                          message.sender === "user"
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-muted"
-                        }`}
-                      >
+                    <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
+                      <div className={`max-w-[80%] rounded-lg px-4 py-2 ${message.sender === "user" ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
                         {message.content}
                       </div>
                     </div>
@@ -202,6 +188,20 @@ export function ChatbotProvider() {
               </ScrollArea>
 
               <div className="border-t p-4 bg-card">
+                <div className="flex items-center justify-between mb-2">
+                  {userEmail ? (
+                    <>
+                      <p className="text-sm">Logged in as <strong>{userEmail}</strong></p>
+                      <Button size="sm" variant="outline" onClick={logout}>
+                        <LogOut className="w-4 h-4 mr-1" /> Logout
+                      </Button>
+                    </>
+                  ) : (
+                    <Button size="sm" onClick={login}>
+                      <LogIn className="w-4 h-4 mr-1" /> Login to Edit
+                    </Button>
+                  )}
+                </div>
                 <div className="flex gap-2">
                   <Textarea
                     placeholder="Ask me anything..."
