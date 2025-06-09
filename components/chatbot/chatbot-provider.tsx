@@ -6,7 +6,7 @@ import { MessageSquare, X, Send, Bot, LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { supabase, isSupabaseConfigured } from '@/lib/supabaseClient';
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
 // --- Types ---
 type Message = {
@@ -25,8 +25,17 @@ export function ChatbotProvider() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUserEmail(user?.email || null);
+      try {
+        // FIX: Safe destructuring to prevent the error
+        const { data, error } = await supabase.auth.getUser();
+        
+        // Check if data exists and has user property
+        if (data && data.user) {
+          setUserEmail(data.user.email || null);
+        }
+      } catch (error) {
+        console.error('Error getting user:', error);
+      }
     };
     getUser();
   }, []);
@@ -34,8 +43,12 @@ export function ChatbotProvider() {
   const login = async () => {
     const email = prompt("Enter your email to login");
     if (email) {
-      const { error } = await supabase.auth.signInWithOtp({ email });
-      if (!error) alert("Check your email for the login link");
+      try {
+        const { error } = await supabase.auth.signInWithOtp({ email });
+        if (!error) alert("Check your email for the login link");
+      } catch (error) {
+        console.error('Login error:', error);
+      }
     }
   };
 
