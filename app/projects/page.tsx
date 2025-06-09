@@ -12,13 +12,14 @@ export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
-    async function fetchProjects() {
+    const fetchData = async () => {
       const { data, error } = await supabase.from("projects").select("*");
       if (error) console.error("Fetch error", error);
       else setProjects(data || []);
-    }
-    fetchProjects();
+    };
+    fetchData();
   }, []);
+
 
   return (
     <div>
